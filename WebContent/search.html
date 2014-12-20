@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>Prefreader</title>
+
+	<link rel="shortcut icon" href="images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="css/main.css">
+	<style> 
+  .textbox1 { 
+    background: white; 
+    border: 1px solid grey; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px 3px grey; 
+    color: #666; 
+    outline: none; 
+    height:30px; 
+    width: 275px; 
+  } 
+  .btnbtnbtn {
+  background: #4de627;
+  background-image: -webkit-linear-gradient(top, #4de627, #20750f);
+  background-image: -moz-linear-gradient(top, #4de627, #20750f);
+  background-image: -ms-linear-gradient(top, #4de627, #20750f);
+  background-image: -o-linear-gradient(top, #4de627, #20750f);
+  background-image: linear-gradient(to bottom, #4de627, #20750f);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btnbtnbtn:hover {
+  background: #3fcc2f;
+  background-image: -webkit-linear-gradient(top, #3fcc2f, #24db14);
+  background-image: -moz-linear-gradient(top, #3fcc2f, #24db14);
+  background-image: -ms-linear-gradient(top, #3fcc2f, #24db14);
+  background-image: -o-linear-gradient(top, #3fcc2f, #24db14);
+  background-image: linear-gradient(to bottom, #3fcc2f, #24db14);
+  text-decoration: none;
+}
+ </style> 
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="js/headroom.min.js"></script>
+	<script src="js/jQuery.headroom.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-slider.js"></script>
+	<script src="js/template.js"></script>
+	<script>
+	function categorygrab(id)
+	{
+		//alert(id);
+		var categoryname = document.getElementById(id).firstChild.getAttribute("value");
+		var copyrightname = document.getElementById(id).childNodes[1].getAttribute("value");
+		$.ajax({
+			type: "POST",
+			url: "CategoryCatcherServlet",
+			data: "category="+categoryname+"&id="+id+"&copyright="+copyrightname,
+			 success: function(msg){				 
+			    
+            },
+            error: function(){
+                alert("failure");
+            }
+		});
+	}
+	
+	function suggestionclicked(suggestion)
+	{
+		$.ajax({
+			type: "POST",
+			url: "SearchServlet",
+			data: "searchterms="+suggestion,
+			 success: function(msg){
+				 var categoryarray = ["sports","politics","business","opinion","technology","health","arts","lifestyle","food","travel"];
+				 //$("article#searchresultsarticle").show();
+				 //$("article#hottopicsarticle").animate({top:"50px",right:"40%",width:"40%"});
+				 //$("article#searchresultsarticle").fadeIn().css({top:1000,position:'absolute'}).animate({top:"50px",left:"480px", width:"55%"});
+				 //var f=0;
+				 //if(msg.indexOf("suggestions")>-1){f=1;}
+				 var splitdata = msg.split('},');
+				 
+					for (var i=0;i<splitdata.length;i++)
+					{
+						//if(f==0)
+							splitdata[i] = splitdata[i].substring(splitdata[i].indexOf(":")+1,splitdata[i].length);
+						if(i<(splitdata.length-1))
+					    	var json = $.parseJSON(splitdata[i]+"}");
+						else{
+							var json = $.parseJSON(splitdata[i].replace("}}","}"));}
+						//var suggestions = json.suggestions;
+						//if (suggestions=="undefined"){
+						    var title = json.title;
+						    var id = json.id;
+						    var copyright = json.copyright;
+						    var weblink = json.weblink;
+						    var content = json.content;
+						    var category = json.category;
+						    var copyright = json.copyright;
+						    var setcategory = "";
+						    var f="";
+						    for(var j=0;j<categoryarray.length;j++){
+							    if(String(category).toLowerCase().indexOf(categoryarray[j])>-1){
+							    	setcategory = setcategory + f + categoryarray[j];
+							    	f=", ";
+							    }
+						    }
+						    
+						    //var version = json._version_;
+						    if($.trim(weblink).length===0){
+						    	weblink="PageCreate?id="+id;
+							}
+						    
+						    var hot = $('#searchresults').html();
+						    if(i==0 && setcategory!="")
+						    	$('#searchresults').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+						    else if(i>0 && setcategory!="")
+						    	$('#searchresults').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+						    else if(i==0 && setcategory=="")
+						    	$('#searchresults').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+						    else if(i>0 && setcategory=="")
+						    	$('#searchresults').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+						//}
+						/* else
+							{
+							suggestions1 = suggestions.split(',');alert(suggestions1.length);
+							for(var i=0;i<suggestions1.length;i++){
+								var searchdiv = $('#searchresults').html();
+								if(i==0)
+									$('#searchresults').html("Did you mean: <a onclick=\"suggestionclicked('"+suggestions1[i]+"');\" id=\""+suggestions1[i]+"\">"+suggestions1[i]+"</a>");
+								else
+									$('#searchresults').html(searchdiv+", <a onclick=\"suggestionclicked('"+suggestions1[i]+"');\" id=\""+suggestions1[i]+"\">"+suggestions1[i]+"</a>");
+							}
+							} */
+					}
+							$("#searchterms").val(suggestion);
+				 
+			    //$("#searchresults").html(msg);
+            },
+            error: function(){
+                alert("failure");
+            }
+		});
+	}
+	
+	
+	$(document).ready(function(){
+		$("article#searchresultsarticle").hide();
+		$.ajax({
+			type: "POST",
+			url: "HotTopics",
+			data: "time="+$.now(),
+			 success: function(data){
+				 if($.trim(data)==="Logged Out"){
+					 window.location.href="index.html";
+				 }
+			 else{
+				 var categoryarray = ["sports","politics","business","opinion","technology","health","arts","lifestyle","food","travel"];
+				 
+				 var splitdata = data.split('},');
+				for (var i=0;i<11;i++)
+				{
+					
+					var id;
+					if(i==0){
+						id=splitdata[i].substring(2,splitdata[i].indexOf(":")-1).trim();
+					}else{
+						id=splitdata[i].substring(1,splitdata[i].indexOf(":")-1).trim();
+					}
+					
+					//alert(id);
+					splitdata[i] = splitdata[i].substring(splitdata[i].indexOf(":")+1,splitdata[i].length);
+					if(i<(splitdata.length-1))
+				    	var json = $.parseJSON(splitdata[i]+"}");
+					else
+						var json = $.parseJSON(splitdata[i].replace("}}","}"));
+				    var title = json.title;
+				    
+				    var copyright = json.copyright;
+				    var weblink = json.weblink;
+				    var content = json.content;
+				    var category = json.category;
+				    //category=category.toLowerCase();
+				    //alert(category.indexOf("sports"));
+				    var setcategory = "";
+				    var f="";
+				    for(var j=0;j<categoryarray.length;j++){
+					    if(String(category).toLowerCase().indexOf(categoryarray[j])>-1){
+					    	setcategory = setcategory + f + categoryarray[j];
+					    	f=", ";
+					    }
+				    }
+				    
+				    if($.trim(weblink).length===0){
+				    	weblink="PageCreate?id="+id;
+					}
+				    
+				    /* var version = json._version_; */
+				    var hot = $('#hottopics').html();
+				    if(i==0 && setcategory!="")				    	
+				    	$('#hottopics').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+				    else if(i>0 && setcategory!="")
+				    	$('#hottopics').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+				    else if(i==0 && setcategory=="")
+				    	$('#hottopics').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+				    else if(i>0 && setcategory=="")
+				    	$('#hottopics').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+				}
+            }
+            },
+            error: function(){
+                alert("failure!");
+            }
+		}), 
+		$.ajax({
+			type: "POST",
+			url: "CollaborativeServlet",
+			data: "time="+$.now(),
+			 success: function(data){
+				 var categoryarray = ["sports","politics","business","opinion","technology","health","arts","lifestyle","food","travel"];
+				 
+				 var splitdata = data.split('},');
+				for (var i=0;i<splitdata.length-1;i++)
+				{
+					
+					var id;
+					if(i==0){
+						id=splitdata[i].substring(2,splitdata[i].indexOf(":")-1).trim();
+					}else{
+						id=splitdata[i].substring(1,splitdata[i].indexOf(":")-1).trim();
+					}
+					
+					//alert(id);
+					splitdata[i] = splitdata[i].substring(splitdata[i].indexOf(":")+1,splitdata[i].length);
+					if(i<(splitdata.length-1))
+				    	var json = $.parseJSON(splitdata[i]+"}");
+					else
+						var json = $.parseJSON(splitdata[i].replace("}}","}"));
+				    var title = json.title;
+				    
+				    //var copyright = json.copyright;
+				    var weblink = json.weblink;
+				    var content = json.content;
+				    var category = json.category;
+				    //category=category.toLowerCase();
+				    //alert(category.indexOf("sports"));
+				    var setcategory = "";
+				    var f="";
+				    for(var j=0;j<categoryarray.length;j++){
+					    if(String(category).toLowerCase().indexOf(categoryarray[j])>-1){
+					    	setcategory = setcategory + f + categoryarray[j];
+					    	f=", ";
+					    }
+				    }
+				    //alert(categoryarray.length);
+				    
+				    /* var version = json._version_; */
+				    if($.trim(weblink).length===0){
+						weblink="PageCreate?id="+id;
+					}
+				    
+				    var hot = $('#peer').html();
+				    if(i==0 && setcategory!="")				    	
+				    	$('#peer').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\">"+title+"</a>&nbsp;&nbsp; "+"</br></br>");
+				    else if(i>0 && setcategory!="")
+				    	$('#peer').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\">"+title+"</a>&nbsp;&nbsp;"+"</br></br>");
+				    else if(i==0 && setcategory=="")
+				    	$('#peer').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\">"+title+"</a></br>"+"</br></br>");
+				    else if(i>0 && setcategory=="")
+				    	$('#peer').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\">"+title+"</a></br>"+"</br></br>");
+				}
+            },
+	            error: function(){
+	                alert("failure!");
+	                
+	         }
+		}), 
+		  $("form#searchform").on("submit", function (e){e.preventDefault();
+				if($("#name").val()==""){}
+				else
+					{
+					$.ajax({
+						type: "POST",
+						url: "SearchServlet",
+						data: "searchterms="+$("#searchterms").val(),
+						 success: function(msg){
+							 var categoryarray = ["sports","politics","business","opinion","technology","health","arts","lifestyle","food","travel"];
+							 $("article#searchresultsarticle").show();var t=60+$("#peersearches").height();
+							 $("article#hottopicsarticle").animate({top:t+"px",right:"40%",width:"40%"});
+							 $("article#searchresultsarticle").fadeIn().css({top:1000,position:'absolute'}).animate({top:"50px",left:"480px", width:"55%"});
+							 var f=0;
+							 if(msg.indexOf("suggestions")>-1){f=1;}
+							 var splitdata = msg.split('},');
+							 
+								for (var i=0;i<splitdata.length;i++)
+								{
+									
+									var id;
+									if(i==0){
+										id=splitdata[i].substring(2,splitdata[i].indexOf(":")-1).trim();
+									}else{
+										id=splitdata[i].substring(1,splitdata[i].indexOf(":")-1).trim();
+									}
+									
+									if(f==0)
+										splitdata[i] = splitdata[i].substring(splitdata[i].indexOf(":")+1,splitdata[i].length);
+									
+									
+									
+									if(i<(splitdata.length-1))
+								    	var json = $.parseJSON(splitdata[i]+"}");
+									else{
+										var json = $.parseJSON(splitdata[i].replace("}}","}"));}
+									var suggestions = json.suggestions;
+									if (suggestions===undefined){
+									    var title = json.title;
+									    //var id = json.id;
+									    var copyright = json.copyright;
+									    var weblink = json.weblink;
+									    var content = json.content;
+									    var category = json.category;
+									    var copyright = json.copyright;
+									    if(title===undefined && content===undefined){
+									    	$('#searchresults').html("");
+									    	break;
+									    }
+									    
+									    var setcategory = "";
+									    var f1="";
+									    for(var j=0;j<categoryarray.length;j++){
+										    if(String(category).toLowerCase().indexOf(categoryarray[j])>-1){
+										    	setcategory = setcategory + f1 + categoryarray[j];
+										    	f1=", ";
+										    }
+									    }
+									    if($.trim(weblink).length===0){
+									    	weblink="PageCreate?id="+id;
+									    }
+									    //var version = json._version_;
+									    var hot = $('#searchresults').html();
+									    if(i==0 && setcategory!="")
+									    	$('#searchresults').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+									    else if(i>0 && setcategory!="")
+									    	$('#searchresults').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a>&nbsp;&nbsp;<i>Category: "+setcategory+"</i></br>"+copyright+"</br>"+content+"</br></br>");
+									    else if(i==0 && setcategory=="")
+									    	$('#searchresults').html("<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+									    else if(i>0 && setcategory=="")
+									    	$('#searchresults').html(hot+"<a href="+weblink+" onclick=\"categorygrab('"+id+"');\" id=\""+id+"\" target=\"_blank\"><input type=\"hidden\" value=\""+category+"\"><input type=\"hidden\" value=\""+copyright+"\">"+title+"</a></br>"+copyright+"</br>"+content+"</br></br>");
+									}
+									else if($.trim(suggestions).length!=0)
+										{
+											suggestions1 = suggestions.split(',');
+											for(var i=0;i<suggestions1.length;i++){
+												var searchdiv = $('#searchresults').html();
+												if(i==0)
+													$('#searchresults').html("Did you mean: <a onclick=\"suggestionclicked('"+suggestions1[i]+"');\" id=\""+suggestions1[i]+"\">"+suggestions1[i]+"</a>");
+												else
+													$('#searchresults').html(searchdiv+", <a onclick=\"suggestionclicked('"+suggestions1[i]+"');\" id=\""+suggestions1[i]+"\">"+suggestions1[i]+"</a>");
+											}
+										}
+								}
+							 
+						    //$("#searchresults").html(msg);
+			            },
+			            error: function(){
+			                alert("failure");
+			            }
+					});
+					}
+				
+			}),
+			$("a#signoutbutton").click(function (){
+				$.ajax({
+					type: "POST",
+					url: "SignOutServlet",
+					data: "",
+					 success: function(msg){
+						alert(msg);
+						window.location.href="index.html";
+		            },
+		            error: function(){
+		                alert("failure");
+		            }
+				});
+			});
+	});
+	</script>
+</head>
+<body class="home">
+<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom animated slideDown">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">Home</a></li>
+					
+					<li><a href="contact.html">Contact</a></li>
+					<li><a class="btn" id="signoutbutton">SIGN OUT</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+	<header id="head" class="secondary"></header>
+	
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Sidebar -->
+			<aside class="col-md-4 sidebar sidebar-left">
+
+				<div class="row widget">
+					<div class="col-xs-12">
+						
+				<form id="searchform" name="searchform">
+				 <input type="text" id="searchterms" name="searchterms" placeholder=" Search..." class="textbox1"/>
+				<button type="submit" style="height:35px;width:35px;background:transparent;border-color: transparent;" id="submit" name="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				</form>
+					</div>
+				</div>
+				
+				<div class="row widget" id="peersearches" name="peersearches">
+					<div class="col-xs-12">
+							<h3 class="page-title">Peer Searches:</h3>
+							<div id="peer" name="peer"></div>
+					</div>
+				</div>
+
+			</aside>
+			<!-- /Sidebar -->
+
+			<!-- Article main content -->
+			<article class="col-md-8 maincontent" id="hottopicsarticle">
+				<header class="page-header">
+					<h3 class="page-title">Trending</h3>
+				</header>
+				
+				<!-- <p>
+					We’d love to hear from you. Interested in working together? Fill out the form below with some info about your project and I will get back to you as soon as I can. Please allow a couple days for me to respond.
+				</p> -->
+				
+					<div id="hottopics" name="hottopics"></div>
+			</article>
+			<article class="col-md-8 maincontent" id="searchresultsarticle">
+				<header class="page-header">
+					<h3 class="page-title">Results</h3>
+				</header>
+				
+				<!-- <p>
+					We’d love to hear from you. Interested in working together? Fill out the form below with some info about your project and I will get back to you as soon as I can. Please allow a couple days for me to respond.
+				</p> -->
+				
+					<div id="searchresults" name="searchresults"></div>
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+	
+</body>
+</html>

@@ -1,0 +1,11 @@
+.no-margin{
+	margin: 0;
+}
+
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+.well{
+	background: #fff ;
+	text-align: center;
+}

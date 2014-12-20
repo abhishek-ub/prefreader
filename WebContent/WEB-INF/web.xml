@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>PrefReader</display-name>
+  <servlet>
+    <servlet-name>Registration Servlet</servlet-name>
+    <servlet-class>com.Servlet.RegistrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Registration Servlet</servlet-name>
+    <url-pattern>/RegistrationServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Login Servlet</servlet-name>
+    <servlet-class>com.Servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login Servlet</servlet-name>
+    <url-pattern>/LoginServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Search Servlet</servlet-name>
+    <servlet-class>com.Servlet.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Search Servlet</servlet-name>
+    <url-pattern>/SearchServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Hot Topics Servlet</servlet-name>
+    <servlet-class>com.Servlet.HotTopics</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Hot Topics Servlet</servlet-name>
+    <url-pattern>/HotTopics/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Category Catcher Servlet</servlet-name>
+    <servlet-class>com.Servlet.CategoryCatcher</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Category Catcher Servlet</servlet-name>
+    <url-pattern>/CategoryCatcherServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Sign Out Servlet</servlet-name>
+    <servlet-class>com.Servlet.SignOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Sign Out Servlet</servlet-name>
+    <url-pattern>/SignOutServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Collaborative Servlet</servlet-name>
+    <servlet-class>com.Servlet.CollaborativeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Collaborative Servlet</servlet-name>
+    <url-pattern>/CollaborativeServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Similar_users</servlet-name>
+    <servlet-class>com.Servlet.SimilarUsers</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Similar_users</servlet-name>
+    <url-pattern>/SimilarUsers/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Page Create</servlet-name>
+    <servlet-class>com.Servlet.PageCreate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Page Create</servlet-name>
+    <url-pattern>/PageCreate/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>

@@ -1,0 +1,396 @@
+<!DOCTYPE>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>PrefReader -Personalizes News Service</title>
+
+	<link rel="shortcut icon" href="images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen">
+	<link rel="stylesheet" href="css/main.css">
+	<!--Custom css -->
+	<link rel="stylesheet" href="css/mystylecss.css">
+	<link rel="stylesheet" href="css/bootstrap-slider.css">
+	
+	<link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css ">
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="js/headroom.min.js"></script>
+	<script src="js/jQuery.headroom.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-slider.js"></script>
+	<script src="js/custom-slider.js"></script>
+	<script src="js/template.js"></script>
+	<script src="js/PerfSubmit.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+	
+	<script>
+		function outputUpdate(vol,i) {
+
+				document.querySelector('#volume'+i).value = vol;
+
+		}
+        function printValue(sliderID, textbox) {
+            var x = document.getElementById(textbox);
+            var y = document.getElementById(sliderID);
+            x.value = y.value;
+        }
+</script>
+<script>
+
+</script>
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="home">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom animated slideDown" style="min-height:100px; padding-top:25px;">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li class="dropdown">
+						
+						<ul class="dropdown-menu">
+							<li><a href="sidebar-left.html">Left Sidebar</a></li>
+							<li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
+						</ul>
+					</li>
+					<li><a href="contact.html">Contact</a></li>
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">YOUR PERSONAL NEWSREADER</h1>
+				<p class="tagline">Get personalized News Contents </p>
+				<p><a class="btn btn-default btn-lg" role="button" id="enter" data-toggle="modal" href="#myModal">REGISTER</a> 
+				<a class="btn btn-action btn-lg" role="button" id="login" data-toggle="modal" href="#loginModal">LOGIN</a></p>
+			</div>
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+		
+	<!-- Intro -->
+	<div class="container text-center">
+		<br> <br>
+		<h2 class="thin">Get News Search Results Customized to Your Preferences</h2>
+		<p class="text-muted">
+			We learn your reading habits to provide you with search results that matters to you:<br> 
+			In a leaner and cleaner fashion.
+		</p>
+	</div>
+	<!-- /Intro-->
+		
+	<!-- Highlights - jumbotron -->
+	<div class="jumbotron top-space" id="about" name="about">
+		<div class="container">
+			
+			<h3 class="text-center thin">Our Features</h3>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Solr-Powered</h4></div>
+					<div class="h-body text-center">
+						<p>All the News ariticles are indexed into solr schema which provide fast access to documents in distributed computing environments</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Trending</h4></div>
+					<div class="h-body text-center">
+						<p>We provide the news articles which talks about trending topics in your area of interrest </p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Preferenced Search</h4></div>
+					<div class="h-body text-center">
+						<p>The searched news articles are returned based on your taste learned by us overtime</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Social Reading</h4></div>
+					<div class="h-body text-center">
+						<p>we provide suggestions on News artiles read by Peers haiving similar interest as you</p>
+					</div>
+				</div>
+			</div> <!-- /row  -->
+		
+		</div>
+	</div>
+	<!-- /Highlights -->
+
+	<!-- container -->
+		<!-- /container -->
+	
+	<!-- Social links. @TODO: replace by link/instructions in template -->
+	<section id="social">
+		<div class="container">
+			<div class="wrapper clearfix">
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_linkedin_counter"></a>
+				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+				</div>
+				<!-- AddThis Button END -->
+			</div>
+		</div>
+	</section>
+	<!-- /social links -->
+
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>
+								<a href="mailto:#">abhimatv@buffalo.edu</a><br>
+								<a href="mailto:#">a35@buffalo.edu</a><br>
+								<a href="mailto:#">msheikh2@buffalo.edu</a><br>
+								<a href="mailto:#">rohitdub@buffalo.edu</a><br>
+								<br>
+							</p>	
+						</div>
+					</div>
+
+					
+
+					
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+								<a href="#">Home</a> | 
+								
+								<a href="contact.html">Contact</a> |
+								<b></b>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>	
+		
+
+	<!-- My Modal-->
+				<div id="myModal" class="modal"  tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-md">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Your Preferences</h4>
+			      </div>
+			      <div class="modal-body">
+			      		<div class="container">
+			      			<div class="col-xs-6">
+			        		<form class="form-horizontal" role="form" id="prefs" name="prefs">
+							 <div class="col-sm-10">
+								 
+							  <div class="form-group">
+							    <label for="name" class="col-sm-3 control-label">Name</label>
+							    <div class="col-sm-9">
+							      <input type="text" class="form-control" name="name" id="name" />
+							    </div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="sportsRange" class="col-sm-3 control-label">Sports</label>
+							  	<div class="col-sm-9">
+							  	
+							  <input name="sportsRange" id="sportsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+
+									<!--<input type=range min=0 max=10 value=0 name="sportsRange" step=1 oninput="outputUpdate(value,1)" id="sportsRange"> -->
+								</div>
+								<!--<output for="sportsRange" id=volume1>0</output> -->
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="politicsRange" class="col-sm-3 control-label">Politics</label>
+							  	<div class="col-sm-9">
+							  
+							  		<input name="politicsRange" id="politicsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+
+								</div>
+								
+							  </div>
+							  
+							    <div class="form-group">
+							  	<label for="businessRange" class="col-sm-3 control-label">Business</label>
+							  	<div class="col-sm-9">
+							  
+							  		<input name="businessRange" id="businessRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="opinionRange" class="col-sm-3 control-label">Opinion</label>
+							  	<div class="col-sm-9">
+							  
+							  		<input name="opinionRange" id="opinionRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="technologyRange" class="col-sm-3 control-label">Technology</label>
+							  	<div class="col-sm-9">
+							  	 
+							  		<input name="technologyRange" id="technologyRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="healthRange" class="col-sm-3 control-label">Health</label>
+							  	<div class="col-sm-9">
+							  	
+							  		<input name="healthRange" id="healthRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+									
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="artsRange" class="col-sm-3 control-label">Arts</label>
+							  	<div class="col-sm-9">
+							  	 
+							  		<input name="artsRange" id="artsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+							
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="lifestyleRange" class="col-sm-3 control-label">Lifestyle</label>
+							  	<div class="col-sm-9">
+							  	 
+									<input  name="lifestyleRange" id="lifestyleRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+							
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="foodRange" class="col-sm-3 control-label">Food</label>
+							  	<div class="col-sm-9">
+							  	 
+									<input name="foodRange" id="foodRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+							
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+							  	<label for="travelRange" class="col-sm-3 control-label">Travel</label>
+							  	<div class="col-sm-9">
+							  	
+									<input  name="travelRange" id="travelRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
+							
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+								  <div class="modal-footer">
+							      	<button type="submit" class="btn btn-success" id="submit">I am Set</button>
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        		  </div>
+			      			  </div>
+							  
+							  
+							  </div>
+							</form>
+						   </div>	
+						  </div>
+						<!-- New Groups  -->  
+						<div class="container">
+					
+							
+							
+						</div>
+						  
+			      </div>
+			      <!-- <div class="modal-footer">
+			      	<button type="button" class="btn btn-success" type="submit" value="I am Set" id="submit">I am Set</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        
+			      </div> -->
+			    </div>
+			  </div>
+			</div>
+
+			<div class="modal fade" id="loginModal" data-backdrop="false">
+		    <div class="modal-dialog">
+		        <div class="modal-content">		    
+		            <div class="modal-body">
+		    			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		            	 <div class="container-fluid">
+		            	 <form id="loginform" name="loginform" role="form">
+		            	 	<div class="row">		            	 	
+		            	 		<div class="col-sm-2">		            	 		
+			            	 		<label for="username" class="col-sm-1 control-label">User Name</label>
+			            	 	</div>
+				            	 <div class="col-sm-8">
+									      <input type="text" class="form-control" id="username" name="username" placeholder="" \>
+								</div>
+							</div>
+							
+								<button type="submit" class="btn btn-success pull-right" type="submit" value="Done" id="userlogin" name="userlogin">Done</button>
+							
+							</form>
+						</div>
+						
+		            </div>
+
+		        </div>
+		    </div>
+</div>
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+
+	
+
+
+</body></html>
