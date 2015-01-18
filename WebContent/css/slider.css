@@ -12,13 +12,13 @@
   position: relative;
 }
 .slider.slider-horizontal {
-  width: 210px;
+  width: 100%; /*210px */
   height: 20px;
 }
 .slider.slider-horizontal .slider-track {
   height: 10px;
   width: 100%;
-  margin-top: -5px;
+  margin-top: -8px;
   top: 50%;
   left: 0;
 }

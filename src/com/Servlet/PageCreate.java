@@ -138,7 +138,7 @@ public class PageCreate extends HttpServlet {
 	        double foodWeight=categoryMap.get("food")/totalWeight;
 	        double travelWeight=categoryMap.get("travel")/totalWeight;
 	        
-	        HttpSolrServer solr = new HttpSolrServer("http://localhost:8983/solr");
+	        HttpSolrServer solr = new HttpSolrServer("http://localhost:4501/solr");
 	        Integer start = new Integer(0);
 			String []fq1={"id","title","weblink","content","category","copyright"};
 			String []val={"edismax"};

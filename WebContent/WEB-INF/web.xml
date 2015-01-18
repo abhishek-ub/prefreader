@@ -73,6 +73,23 @@
     <servlet-name>Page Create</servlet-name>
     <url-pattern>/PageCreate/*</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>ResetPassword</servlet-name>
+    <servlet-class>com.Servlet.ResetPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResetPassword</servlet-name>
+    <url-pattern>/ResetPassword/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ResetPassTokenval</servlet-name>
+    <servlet-class>com.Servlet.ResetPassTokenval</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResetPassTokenval</servlet-name>
+    <url-pattern>/ResetPassTokenval/*</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

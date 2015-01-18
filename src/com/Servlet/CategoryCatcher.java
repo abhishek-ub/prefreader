@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.PreparedStatement;
-import com.sun.org.apache.bcel.internal.generic.Select;
 
 /**
  * Servlet implementation class CategoryCatcher
@@ -114,6 +113,7 @@ public class CategoryCatcher extends HttpServlet {
 					stm=connection.createStatement();
 					rs=stm.executeQuery(selectq);
 					rs.next();
+					System.out.println("catagory catcher:count from  "+selectq.toString()+" = "+rs.getInt("count(*)"));
 					if(rs.getInt("count(*)")==0){
 						PreparedStatement insert=(PreparedStatement) connection.prepareStatement("insert into docsread values(default,?,?)");
 						insert.setString(1, name);

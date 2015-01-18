@@ -2,8 +2,6 @@
 <html lang="en"><head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
 	
 	<title>PrefReader -Personalizes News Service</title>
 
@@ -12,6 +10,7 @@
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
 
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen">
@@ -29,8 +28,19 @@
 	<script src="js/custom-slider.js"></script>
 	<script src="js/template.js"></script>
 	<script src="js/PerfSubmit.js"></script>
+	<script src="js/FB-JS-Sdk.js"></script>
+	<script src="js/apilogon.js"></script>
+	<script src="js/linkedinlogin.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
 	
+	<!--  linkedIN     -->
+	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+ 	 api_key: 78uihfe7rl0qgf
+ 	 //onLoad: onLinkedInLoad
+ 	 authorize: true
+	</script>
+	
+	<!--  linkedIN  Ends   -->
 	<script>
 		function outputUpdate(vol,i) {
 
@@ -135,7 +145,7 @@
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Social Reading</h4></div>
 					<div class="h-body text-center">
-						<p>we provide suggestions on News artiles read by Peers haiving similar interest as you</p>
+						<p>we provide suggestions on News artiles read by Peers having similar interest as you</p>
 					</div>
 				</div>
 			</div> <!-- /row  -->
@@ -221,174 +231,233 @@
 		
 
 	<!-- My Modal-->
-				<div id="myModal" class="modal"  tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div id="myModal" class="modal"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-md">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Your Preferences</h4>
+			        <h4 class="modal-title" id="myModalLabel" align="center">Your Preferences</h4>
 			      </div>
-			      <div class="modal-body">
-			      		<div class="container">
-			      			<div class="col-xs-6">
-			        		<form class="form-horizontal" role="form" id="prefs" name="prefs">
-							 <div class="col-sm-10">
-								 
-							  <div class="form-group">
-							    <label for="name" class="col-sm-3 control-label">Name</label>
-							    <div class="col-sm-9">
-							      <input type="text" class="form-control" name="name" id="name" />
-							    </div>
-							  </div>
-							  
-							  <div class="form-group">
-							  	<label for="sportsRange" class="col-sm-3 control-label">Sports</label>
-							  	<div class="col-sm-9">
-							  	
-							  <input name="sportsRange" id="sportsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
-
-									<!--<input type=range min=0 max=10 value=0 name="sportsRange" step=1 oninput="outputUpdate(value,1)" id="sportsRange"> -->
+			      <form class="form-horizontal" role="form" id="prefs" name="prefs">
+			      	<div class="modal-body" align="center">
+			        		
+							 <!-- div class="col-sm-10 col-md-6 col-xs-6" -->								 							
+							  <div class="row" >
+							  <div class="form-group" >
+							  	<label for="sportsRange" class="col-md-4 col-sm-4 control-label" >Sports</label>
+							  	<div class="col-sm-5 col-md-5">						  	
+							  	<input name="sportsRange" id="sportsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 								</div>
-								<!--<output for="sportsRange" id=volume1>0</output> -->
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="politicsRange" class="col-sm-3 control-label">Politics</label>
-							  	<div class="col-sm-9">
+							  	<label for="politicsRange" class="col-sm-4 col-md-4 control-label">Politics</label>
+							  	<div class="col-sm-5 col-md-5">
 							  
 							  		<input name="politicsRange" id="politicsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 
 								</div>
 								
 							  </div>
-							  
+							  </div>
+							  	<div class="row">
 							    <div class="form-group">
-							  	<label for="businessRange" class="col-sm-3 control-label">Business</label>
-							  	<div class="col-sm-9">
+							  	<label for="businessRange" class="col-sm-4 col-md-4 control-label">Business</label>
+							  	<div class="col-sm-5 col-md-5">
 							  
 							  		<input name="businessRange" id="businessRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="opinionRange" class="col-sm-3 control-label">Opinion</label>
-							  	<div class="col-sm-9">
+							  	<label for="opinionRange" class="col-sm-4 col-md-4 control-label">Opinion</label>
+							  	<div class="col-sm-5 col-md-5">
 							  
 							  		<input name="opinionRange" id="opinionRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="technologyRange" class="col-sm-3 control-label">Technology</label>
-							  	<div class="col-sm-9">
+							  	<label for="technologyRange" class="col-sm-4 col-md-4 control-label">Technology</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	 
 							  		<input name="technologyRange" id="technologyRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="healthRange" class="col-sm-3 control-label">Health</label>
-							  	<div class="col-sm-9">
+							  	<label for="healthRange" class="col-sm-4 col-md-4 control-label">Health</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	
 							  		<input name="healthRange" id="healthRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 									
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="artsRange" class="col-sm-3 control-label">Arts</label>
-							  	<div class="col-sm-9">
+							  	<label for="artsRange" class="col-sm-4 col-md-4 control-label">Arts</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	 
 							  		<input name="artsRange" id="artsRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 							
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="lifestyleRange" class="col-sm-3 control-label">Lifestyle</label>
-							  	<div class="col-sm-9">
+							  	<label for="lifestyleRange" class="col-sm-4 col-md-4 control-label">Lifestyle</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	 
 									<input  name="lifestyleRange" id="lifestyleRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 							
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="foodRange" class="col-sm-3 control-label">Food</label>
-							  	<div class="col-sm-9">
+							  	<label for="foodRange" class="col-sm-4 col-md-4 control-label">Food</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	 
 									<input name="foodRange" id="foodRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 							
 								</div>
 							  </div>
-							  
+							  </div>
+							  <div class="row">
 							  <div class="form-group">
-							  	<label for="travelRange" class="col-sm-3 control-label">Travel</label>
-							  	<div class="col-sm-9">
+							  	<label for="travelRange" class="col-sm-4 col-md-4 control-label">Travel</label>
+							  	<div class="col-sm-5 col-md-5">
 							  	
 									<input  name="travelRange" id="travelRange"  data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0" data="value: '0'" value="0" style="display: none;">
 							
 								</div>
 							  </div>
-							  
-							  <div class="form-group">
-								  <div class="modal-footer">
-							      	<button type="submit" class="btn btn-success" id="submit">I am Set</button>
-							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        		  </div>
-			      			  </div>
-							  
-							  
-							  </div>
-							</form>
-						   </div>	
-						  </div>
-						<!-- New Groups  -->  
-						<div class="container">
-					
-							
-							
-						</div>
-						  
+							  </div>						  
 			      </div>
-			      <!-- <div class="modal-footer">
-			      	<button type="button" class="btn btn-success" type="submit" value="I am Set" id="submit">I am Set</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        
-			      </div> -->
+      		 	<div class="modal-footer" style="margin:4px;">
+					   	<div class="row" >
+					   		<div class="col-xs-7 col col-sm-7 col-md-7">
+					   			<div class="row" style="margin-bottom:2px;">
+					   				<div class="col-md-5 col-xs-offset-1" style="margin-bottom:2px;">
+					   					<div class="form-group" style="margin-bottom:2px;">
+										      <input type="text" class="form-control form-padding" placeholder="User Name" name="name" id="name" />												   
+								  		</div>
+					   				</div>
+					   				<div class="col-md-5 col-md-offset-1" align="right"  style="margin-bottom:2px;">
+					   					<div class="form-group"  style="margin-bottom:2px;">
+										      <input type="password" class="form-control form-padding" placeholder="Password" name="pass" id="pass" />												   
+								  		</div>
+					   				
+					   				</div>
+					   			</div>	
+					   			<div class="row" style="margin-bottom:2px;">
+					   				<div class=" col-xs-11 col col-sm-11 col-md-11 col-md-offset-1" align="left" style="margin-bottom:2px;">	
+					   					<div class="form-group" style="margin-bottom:2px;">							 
+									      	<input type="email" class="form-control" placeholder="Mail Id" name="mail" id="mail" />
+								      	</div>									        						        		  
+			      			  		</div>
+					   			</div>	
+					   			<div class="row">							   				
+					   				<div class=" col-xs-12 col col-sm-12 col-md-12" align="right" style="margin-bottom:2px;">	
+					   					<div class="form-group" style="margin-bottom:2px;">							 
+									      	<button type="submit" class="btn btn-success btn-vsm" id="submit">I am Set</button>	
+									      	<button type="button" class="btn btn-default btn-xs btn-vsm" data-dismiss="modal">Close</button>
+								      	</div>									        						        		  
+			      			  		</div>
+			      			  		
+					   			</div>			   		
+						   	
+					   		</div>
+					   		<div class="col-xs-1 col col-sm-1 col-md-1" >
+					   		<div></div>
+					   			<div class="row" style="margin-top:25px;">
+								   <h4 class="thin-text-center">OR</h4>
+								 </div>			
+					   		</div>
+					   		
+						   	<div class="col-xs-4 col col-sm-4 col-md-4">
+					   			<div class="row">
+							   		<div class="col-xs-5 col col-sm-5 col-md-5 col-md-offset-1" align="right" style="margin-bottom:10px;">
+									  	 <button type="button" class="btn btn-default btn-circle" id="fbreg" onclick="register()">
+													<span class="fa fa-facebook fa-lg"></span>
+										</button> 
+			      			  		</div>
+			      			  		
+						   		</div>
+						   		<div class="row">
+							   		<div class="col-xs-5 col col-sm-5 col-md-5 col-md-offset-1" align="right">
+										  	 <button type="button" class="btn btn-default btn-circle" id="linreg" onclick="onLinkedInLoad()">
+														<span class="fa fa-linkedin fa-lg"></span>
+											</button> 
+			      			  		</div>
+						   		</div>
+					   		</div>
+					   	</div>
+      			  </div>
+      			  </form>
 			    </div>
 			  </div>
 			</div>
 
-			<div class="modal fade" id="loginModal" data-backdrop="false">
-		    <div class="modal-dialog">
-		        <div class="modal-content">		    
-		            <div class="modal-body">
+			<div class="modal fade" id="loginModal">
+		    <div class="modal-dialog modal-dialog-center">
+		        <div class="modal-content">	
+		        	    
+		            <div class="modal-body contaner-mgn">
 		    			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		            	 <div class="container-fluid">
-		            	 <form id="loginform" name="loginform" role="form">
-		            	 	<div class="row">		            	 	
-		            	 		<div class="col-sm-2">		            	 		
-			            	 		<label for="username" class="col-sm-1 control-label">User Name</label>
-			            	 	</div>
-				            	 <div class="col-sm-8">
-									      <input type="text" class="form-control" id="username" name="username" placeholder="" \>
+		            	 <div class="container-fluid contaner-mgn">
+		            	 <form id="loginform" name="loginform" role="form" >
+		            	 	<div class="row contaner-mgn">
+				            	 <div class="form-group col-sm-9 col-md-9 col-xs-9 contaner-mgn">
+				            	 	<div class="row ">
+					            	 	<div class="form-group col-sm-6 col-md-6 col-xs-6 ">
+											      <input type="text" class="form-control" id="username" name="username" placeholder="UserName/Mail" \>
+										</div>
+										<div class="form-group col-sm-6 col-md-6 col-xs-6 ">
+											      <input type="password" class="form-control" id="loginpass" name="loginpass" placeholder="Password" \>
+										</div>
+									</div>
+									<div class="row "  >
+										<div class=" col-sm-3 col-md-3 col-xs-3 contaner-mgn "> 
+										</div>
+										<div class=" col-sm-6 col-md-6 col-xs-6 col-mgntop " align="right" >
+											   <a href="PasswordReset.html">Forgot password</a>   
+										</div>
+										<div class="form-group col-sm-3 col-md-3 col-xs-3 contaner-mgn" align="right">
+											      <button  class="btn btn-success btn-pad " type="submit" value="Done" id="userlogin" name="userlogin">Done</button>
+										</div>
+											
+									</div>
+								</div>
+								<div class="form-group col-sm-3 col-md-3 col-xs-3 ">
+									     <div class="row formgrp-mgn" align="center">
+										     <button type="button" class="btn btn-default btn-circle " id="fblogin" onclick="login()" >
+														<span class="fa fa-facebook fa-lg" ></span>
+											 </button>
+										</div>
+										<div class="row" align="center">
+										     <button type="button" class="btn btn-default btn-circle" id="linreg" onclick="onLinkedInlog()">
+													<span class="fa fa-linkedin fa-lg"></span>
+										</button> 
+										</div>
 								</div>
 							</div>
-							
-								<button type="submit" class="btn btn-success pull-right" type="submit" value="Done" id="userlogin" name="userlogin">Done</button>
-							
+						
 							</form>
 						</div>
 						
 		            </div>
-
+					
 		        </div>
 		    </div>
 </div>
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 
 	
 

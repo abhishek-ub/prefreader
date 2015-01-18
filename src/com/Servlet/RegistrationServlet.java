@@ -15,6 +15,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class RegistrationServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9029382432065628985L;
+
 	private String message;
 
 	  public void init() throws ServletException
@@ -31,9 +36,7 @@ public class RegistrationServlet extends HttpServlet {
 	      // Set response content type
 	      response.setContentType("text/html");
 
-	      // Actual logic goes here.
-	      PrintWriter out = response.getWriter();
-	      out.println("<h1>" + message + "</h1>");
+
 	  }
 	  
 	  public void doPost(HttpServletRequest request,
@@ -61,7 +64,10 @@ public class RegistrationServlet extends HttpServlet {
 
 	      // Actual logic goes here.
 	      PrintWriter out = response.getWriter();
+	      
 	      String name=request.getParameter("name");
+	      String mail=request.getParameter("mail");
+	      String pass=request.getParameter("pass");
 	      int business=Integer.parseInt(request.getParameter("businessRange"));
 	      int opinion=Integer.parseInt(request.getParameter("opinionRange"));
 	      int sports=Integer.parseInt(request.getParameter("sportsRange"));
@@ -86,11 +92,8 @@ public class RegistrationServlet extends HttpServlet {
 	   
 	  	System.out.println("MySQL JDBC Driver Registered!");
 	  	Connection connection = null;
-	    Statement statement = null;
 	    PreparedStatement preparedStatement = null;
-	    ResultSet resultSet = null;
-	   
-	  	try {
+	    try {
 	  		connection = DriverManager
 	  		.getConnection("jdbc:mysql://localhost/nreader","news", "123456");
 	   
@@ -101,26 +104,30 @@ public class RegistrationServlet extends HttpServlet {
 	  	}
 	   
 	  	if (connection != null) {
-	  		System.out.println("You made it, take control your database now!");
+	  		System.out.println("You made it, take control your db now!");
 	  		try {
+	  			Statement usr=connection.createStatement();
+	  			ResultSet re=usr.executeQuery("select * from users");
+	  			re.next();
+	  			System.out.println("re :"+re.toString());
 		        
-		        // statements allow to issue SQL queries to the database
-		        statement = connection.createStatement();
-
-		        preparedStatement = connection.prepareStatement("insert into  users values (default, ?, ?, ?, ? , ?,?,?,?,?,?,?,default,default,default)");
+		        preparedStatement = connection.prepareStatement("insert into  users values (default,?,?,?,?,?,?,?,?,?,?,?,?,?,default,default,default)");
+		        System.out.println("Registration servlet: "+preparedStatement.toString());
 		        // "myuser, webpage, datum, summary, COMMENTS from userdetails");
 		        // parameters start with 1
 		        preparedStatement.setString(1, name);
-		        preparedStatement.setInt(2, sports);
-		        preparedStatement.setInt(3, politics);
-		        preparedStatement.setInt(4, business);
-		        preparedStatement.setInt(5, opinion);
-		        preparedStatement.setInt(6, technology);
-		        preparedStatement.setInt(7, health);
-		        preparedStatement.setInt(8, arts);
-		        preparedStatement.setInt(9, lifestyle);
-		        preparedStatement.setInt(10, food);
-		        preparedStatement.setInt(11, travel);
+		        preparedStatement.setString(2,mail);
+		        preparedStatement.setString(3, pass);
+		        preparedStatement.setInt(4, sports);
+		        preparedStatement.setInt(5, politics);
+		        preparedStatement.setInt(6, business);
+		        preparedStatement.setInt(7, opinion);
+		        preparedStatement.setInt(8, technology);
+		        preparedStatement.setInt(9, health);
+		        preparedStatement.setInt(10, arts);
+		        preparedStatement.setInt(11, lifestyle);
+		        preparedStatement.setInt(12, food);
+		        preparedStatement.setInt(13, travel);
 		        preparedStatement.executeUpdate();
 
 

@@ -13,10 +13,18 @@ $(document).ready(function (){f=0;
 	        name: {
 	            validators: {
 	                notEmpty: {
-	                    message: 'The first name is required and cannot be empty'
+	                    message: 'Please provide Username'
 	                }
 	            }
+	        },
+	        pass:{
+	        	validators :{
+	        		notEmpty: {
+	        			message:'Please set Password'
+	        		}
+	        	}
 	        }
+	    
 	    }
 	}),
 	$('#loginform').bootstrapValidator({
@@ -29,9 +37,16 @@ $(document).ready(function (){f=0;
 	        username: {
 	            validators: {
 	                notEmpty: {
-	                    message: 'The first name is required and cannot be empty'
+	                    message: 'Please enter the user Name'
 	                }
 	            }
+	        },
+	        loginpass: {
+	        	validators:{
+	        		notEmpty:{
+	        			message: 'Please enter password'
+	        		}
+	        	}
 	        }
 	    }
 	}),
@@ -39,63 +54,15 @@ $(document).ready(function (){f=0;
 		if($("#name").val()==""){}
 		else
 			{
-			$.ajax({
-				type: "POST",
-				url: "RegistrationServlet",
-				data: $("#prefs").serialize(),
-				 success: function(msg){
-	                $("#enter1").html(msg) ;//hide button and show thank you
-	                $("#myModal").modal('hide'); //hide popup  
-	                if($.trim(msg)==="Registration successfull!"){
-	                	window.location.href="search.html";
-	                	
-	                	//ajax call to update similar user preferences
-	                	$.ajax({
-	                		type: "POST",
-	                		url: "SimilarUsers",
-	                		data:"",
-	                		sucess:function(msg){
-	                			//alert(msg);
-	                		},error:function(){
-	                			//alert("failed to capture similar users");
-	                		}
-	                		
-	                	});
-	                	
-	                	
-	                }
-	                else
-	                	alert(msg)
-	            },
-	            error: function(){
-	                alert("failure");
-	            }
-			});
+				apiregister($("#name").val(), $("#pass").val());
 			}
 		
 	}),
 	$("form#loginform").on("submit", function (e){e.preventDefault();
-	if($("#username").val()==""){}
+	if($("#username").val()==""||$("#loginpass").val()==""){}
 	else
 		{
-		$.ajax({
-			type: "POST",
-			url: "LoginServlet",
-			data: "username="+$("#username").val(),
-			 success: function(msg){
-                $("#loginmodal").modal('hide'); //hide popup  
-//                var user=$sessionScope.username;
-//                alert("aaaasw"+user);
-                if($.trim(msg)==="Login Successful!"){
-                	window.location.href="search.html";
-                }
-                else
-                	alert(msg);
-            },
-            error: function(){
-                //alert("failure");
-            }
-		});
+			apilogin($("#username").val(), $("#loginpass").val());
 		}
 	}),
 

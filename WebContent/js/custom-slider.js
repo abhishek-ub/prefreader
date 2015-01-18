@@ -41,7 +41,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#healthRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 
@@ -49,7 +49,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#artsRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 
@@ -57,7 +57,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#lifestyleRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 
@@ -65,7 +65,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#foodRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 
@@ -73,7 +73,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#travelRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 
@@ -81,7 +81,7 @@ $(document).ready(function (){
 $(document).ready(function (){
 	$('#travelRange').slider({
 	formatter: function(value) {
-		return 'Current value: ' + value;
+		return 'Rating: ' + value;
 	}});
 
 

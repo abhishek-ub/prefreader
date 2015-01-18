@@ -9,3 +9,51 @@
 	background: #fff ;
 	text-align: center;
 }
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 3px 0;
+  font-size: 15px;
+  line-height: 1.42;
+  border-radius: 40px;
+  border-color: #9F418F;
+}
+
+.modal-dialog-center {
+  transform: translate(0, 70%) !important;
+  -ms-transform: translate(0, 70%) !important; /* IE 9 */
+  -webkit-transform: translate(0, 70%) !important; /* Safari and Chrome */
+}
+
+.btn-vsm {
+	padding:6px	;
+	text-align:center;
+}
+
+.btn-pad {
+	width: 100%;
+  	height: 40px;
+	padding:5px;
+	text-align:center;	
+}
+
+.contaner-mgn {
+	margin-bottom :0px;	
+	margin-left :0px;
+	margin-right :0px;
+}
+
+.formgrp-mgn{
+	margin-bottom :10px;
+}
+.col-mgntop {
+	vertical-align: bottom;
+	text-align: bottom;	
+}
+
+.form-padding{
+	margin-bottom :0px;	
+	padding:opx;
+}

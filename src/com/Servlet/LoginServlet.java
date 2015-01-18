@@ -36,12 +36,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 // Set response content type
-	      response.setContentType("text/html");
-
-	      // Actual logic goes here.
-	      PrintWriter out = response.getWriter();
-	      out.println("<h1>" + "yo!" + "</h1>");
 	}
 
 	/**
@@ -69,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		String username = request.getParameter("username");
+		String password=request.getParameter("loginpass");
 		
 		   System.out.println("-------- MySQL JDBC Connection Testing ------------");
 		      
@@ -82,7 +77,6 @@ public class LoginServlet extends HttpServlet {
 		   
 		  	System.out.println("MySQL JDBC Driver Registered!");
 		  	Connection connection = null;
-		    Statement statement = null;
 		    PreparedStatement preparedStatement = null;
 		    ResultSet resultSet = null;
 		   
@@ -99,11 +93,15 @@ public class LoginServlet extends HttpServlet {
 		  	if (connection != null) {
 		  		System.out.println("You made it, take control your database now!");
 		  		try {
-			  		 statement = connection.createStatement();
-				        // resultSet gets the result of the SQL query
-//				        resultSet = statement.executeQuery("select * from users  where username=");
-			  		 preparedStatement=connection.prepareStatement("select * from users where username = ?");
-			  		 preparedStatement.setString(1, username);
+		  			if(username.contains("@")){
+		  				 preparedStatement=connection.prepareStatement("select * from users where mail = ? and password=?");
+		  				 preparedStatement.setString(1, username);
+				  		 preparedStatement.setString(2, password);
+		  			}else{
+				  		 preparedStatement=connection.prepareStatement("select * from users where username = ? and password=?");
+				  		 preparedStatement.setString(1, username);
+				  		 preparedStatement.setString(2, password);
+		  			}
 			  		 resultSet=preparedStatement.executeQuery();
 			  		 int count=0;
 			  		 while(resultSet.next())
@@ -112,13 +110,14 @@ public class LoginServlet extends HttpServlet {
 			  		 }
 			  		PrintWriter out = response.getWriter();
 				     
-			  		 if(count==0)
-			  			 out.println("Not Registered?");
-			  		 else{
+			  		 if(count==0){
+			  			 System.out.println("UserName or password invalid");
+			  			 out.println("UserName or password invalid");
+			  		 }else{
+			  			 System.out.println("Login Successful!");
 			  			 out.println("Login Successful!");
 			  			 
 			  			 session.setAttribute("username", username);
-//			  			 response.sendRedirect("search.html");
 			  		 }
 			  	}
 			  	catch(Exception e)

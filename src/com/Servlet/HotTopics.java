@@ -307,7 +307,7 @@ public class HotTopics extends HttpServlet {
 				hotTopic.append("\" OR \"");
 			}
 
-			HttpSolrServer solr = new HttpSolrServer("http://localhost:8983/solr");
+			HttpSolrServer solr = new HttpSolrServer("http://localhost:4501/solr");
 	        Integer start = new Integer(0);
 			
 			String []fq1={"id","title","content","weblink","category","copyright","copyright"};

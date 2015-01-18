@@ -122,7 +122,7 @@ public class CollaborativeServlet extends HttpServlet {
 			    		num++;
 			    		if(num>2)break;
 					    	//query the solr for these id
-					    	HttpSolrServer solr = new HttpSolrServer("http://localhost:8983/solr");
+					    	HttpSolrServer solr = new HttpSolrServer("http://localhost:4501/solr");
 					    	Integer start = new Integer(0);
 					    	String []fq1={"id","title","content","weblink","category","copyright"};
 							String []val={"edismax"};
